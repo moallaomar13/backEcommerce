@@ -20,7 +20,7 @@ app.use(express.json());
 //BodyParser Middleware
 app.use(express.json());
 mongoose.set('strictQuery', false);
-const connect = async () => {
+
     mongoose.set("strictQuery", false);
     // Connexion à la base données
     mongoose.connect(process.env.DATABASECLOUD,{
@@ -32,7 +32,6 @@ const connect = async () => {
     console.log('Impossible de se connecter à la base de données', err);
     process.exit();
     });
-};
 mongoose.connection.on("disconnected", () => {
     console.log("mongoDB disconnected!");
 });
@@ -43,7 +42,6 @@ app.use("/api/categories",categorieRouter);
 app.use("/api/scategories",scategorieRouter);
 app.use("/api/article",articleRouter);
 app.listen(process.env.PORT, () => {
-    connect();
     console.log("Server is listening on port" +`${process.env.PORT}`);
 });
 module.exports = app;
