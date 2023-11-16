@@ -19,14 +19,19 @@ app.use(express.json());
 
 //BodyParser Middleware
 app.use(express.json());
-mongoose.set('strictQuery', true)
+mongoose.set('strictQuery', false);
 const connect = async () => {
-    try {
-        await mongoose.connect(process.env.DATABASECLOUD);
-        console.log("Connected to mongoDB.");
-    } catch (error) {
-        throw error;
-    }
+    mongoose.set("strictQuery", false);
+    // Connexion à la base données
+    mongoose.connect(process.env.DATABASECLOUD,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+    })
+    .then(() => {console.log("Connexion à la base de données réussie");
+    }).catch(err => {
+    console.log('Impossible de se connecter à la base de données', err);
+    process.exit();
+    });
 };
 mongoose.connection.on("disconnected", () => {
     console.log("mongoDB disconnected!");
