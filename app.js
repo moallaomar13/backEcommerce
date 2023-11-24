@@ -8,14 +8,14 @@ const categorieRouter = require('./routes/categorie.route');
 const scategorieRouter = require('./routes/scategorie.route');
 const articleRouter = require('./routes/article.route');
 
-//const cors = require('cors')
+const cors = require('cors')
 
 dotenv.config()
 const app = express();
 app.use(express.json());
 //Les cors
 
-//app.use(cors())
+app.use(cors())
 
 //BodyParser Middleware
 app.use(express.json());
